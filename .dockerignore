@@ -1,0 +1,20 @@
+# O que NÃO entra na imagem.
+#
+# `node_modules` é a razão de existir do estágio `standalone`: o build já traz os
+# arquivos necessários, e copiar o `node_modules` inteiro de volta faria a imagem
+# passar de 200 MB para mais de 1 GB sem ganho nenhum.
+node_modules
+.next
+.git
+.gitignore
+testes
+e2e
+playwright-report
+test-results
+coverage
+*.log
+.env
+.env.local
+.env.*.local
+README.md
+AGENTS.md

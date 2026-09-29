@@ -1,0 +1,29 @@
+# Dependências
+node_modules/
+
+# Build do Next
+.next/
+out/
+next-env.d.ts
+
+# Ambiente
+#
+# `.env.local` tem o segredo de revalidação. Este repositório não tem o
+# `.gitignore` da raiz do monorepo, e um `git add -A` versiona qualquer
+# arquivo que exista no disco — foi o que aconteceu com o `.env` do
+# boats-api.
+.env
+.env.local
+.env.*.local
+
+# Testes
+coverage/
+playwright-report/
+test-results/
+
+# Sistema e editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+
+/* =============================================================================
+   O design system vive em CSS variables (globals.css). Aqui só há o Tailwind e
+   as poucas utilidades compostas que os tokens não cobrem sozinhas.
+
+   Nenhuma cor hex solta neste arquivo. A regra é do AGENTS.md: hex em componente
+   é um token que ninguém sabe quando mudar.
+   ========================================================================== */
+
+@theme inline {
+  --color-fundo: var(--fundo);
+  --color-fundo-elevado: var(--fundo-elevado);
+  --color-superficie: var(--superficie);
+  --color-superficie-alta: var(--superficie-alta);
+  --color-superficie-focada: var(--superficie-focada);
+
+  --color-texto: var(--texto);
+  --color-texto-secundario: var(--texto-secundario);
+  --color-texto-terciario: var(--texto-terciario);
+  --color-texto-invertido: var(--texto-invertido);
+
+  --color-dourado: var(--dourado);
+  --color-dourado-forte: var(--dourado-forte);
+  --color-lilas: var(--lilas);
+  --color-lilas-forte: var(--lilas-forte);
+
+  --color-sos: var(--sos);
+  --color-sos-forte: var(--sos-forte);
+
+  --color-erro: var(--erro);
+  --color-sucesso: var(--sucesso);
+  --color-aviso: var(--aviso);
+
+  --radius-sm: var(--raio-sm);
+  --radius-md: var(--raio);
+  --radius-lg: var(--raio-lg);
+  --radius-xl: var(--raio-xl);
+
+  --font-display: var(--fonte-display);
+  --font-sans: var(--fonte-corpo);
+  --font-mono: var(--fonte-mono);
+}
+
+* {
+  border-color: transparent;
+}
+
+html,
+body {
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-corpo);
+  font-size: var(--tamanho-corpo);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Rótulo em caixa alta com tracking largo: o tom de ficha técnica náutica que
+   a doc 1 usa em todos os campos. */
+.rotulo {
+  font-size: var(--tamanho-rotulo);
+  font-weight: var(--peso-medio);
+  letter-spacing: var(--tracking-rotulo);
+  text-transform: uppercase;
+  color: var(--texto-terciario);
+}
+
+/* Número grande de métrica com legenda pequena embaixo (doc 1 §4.7). */
+.metrica {
+  font-family: var(--fonte-numero);
+  font-size: var(--tamanho-metrica);
+  font-weight: var(--peso-forte);
+  line-height: 1;
+  letter-spacing: var(--tracking-apertado);
+  font-variant-numeric: tabular-nums;
+}
+
+.metrica-legenda {
+  font-size: var(--tamanho-rotulo);
+  letter-spacing: var(--tracking-rotulo);
+  text-transform: uppercase;
+  color: var(--texto-terciario);
+}
+
+/* Foco visível em TUDO que recebe teclado. O `:focus-visible` e não `:focus`
+   porque clicar não deve deixar anel; digitar deve. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--foco);
+  outline-offset: 2px;
+  border-radius: var(--raio-sm);
+}
+
+::selection {
+  background: var(--dourado-sutil);
+  color: var(--texto);
+}
+
+/* Barra de rolagem discreta: no escuro, a barra padrão em branco é um acento
+   visual que briga com o dourado. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--superficie-alta) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--superficie-alta);
+  border-radius: var(--raio-cheio);
+  border: 3px solid var(--fundo);
+}
+
+/* Pulso do botão Socorro. É a única animação do sistema, e ela existe porque o
+   botão precisa ser reconhecido em 200 ms numa tela cheia de informação. */
+@keyframes pulso-sos {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--sos-brilho);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(229, 72, 77, 0);
+  }
+}
+
+.pulso-sos {
+  animation: pulso-sos var(--duracao-sos) ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulso-sos {
+    animation: none;
+  }
+}
+
+@keyframes brilho-esqueleto {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.esqueleto {
+  background: var(--superficie-alta);
+  border-radius: var(--raio-sm);
+  animation: brilho-esqueleto 1400ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .esqueleto {
+    animation: none;
+  }
+}
